@@ -1,14 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import SignupScreen from './frontend/src/screens/SignupScreen';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>So much more that we can do</Text>
-      <StatusBar style="auto" />
-    </View>
+const App = () => {
+  return(
+    <SafeAreaView style ={styles.root}>
+      <SignupScreen />
+    </SafeAreaView>
+    
   );
-}
+};
+
 
 const styles = StyleSheet.create({
   container: {
@@ -18,3 +21,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+
+export default App;
