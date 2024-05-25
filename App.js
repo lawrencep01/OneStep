@@ -1,10 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import SignupScreen from './frontend/src/screens/SignupScreen';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-
 import * as firebase from 'firebase'
-
+//
 const firebaseConfig = {
   apiKey: "AIzaSyAR7Pfvtr-1gG8CCRUUQyiREuZBn06qPcM",
   authDomain: "onestep-44122.firebaseapp.com",
