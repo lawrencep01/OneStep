@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, useWindowDimensions, Alert} from 'react-native';
+import React, {useState} from 'react';
+import LogoImg from '../assets/images/favicon.png';
+import CustomInput from '../components/CustomInput';
+import CustomButton from '../components/CustomButton';
+
 
 const SignupScreen = () => {
-  const [name, setName] = useState('');
+
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSignup = () => {
-    if (!name || !email || !password || !confirmPassword) {
+  const {height} = useWindowDimensions();
+  
+  const SigninPressed = () =>{
+    if (!username || !email || !password || !confirmPassword) {
       Alert.alert('Error', 'All fields are required.');
       return;
     }
@@ -20,97 +27,50 @@ const SignupScreen = () => {
 
     Alert.alert('Success', 'Signup successful!');
 
-    setName('');
+    setUsername('');
     setEmail('');
     setPassword('');
     setConfirmPassword('');
-  };
+  }
+
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Sign Up</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Name"
-        value={name}
-        onChangeText={setName}
-        placeholderTextColor="#aaa"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-        placeholderTextColor="#aaa"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        placeholderTextColor="#aaa"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Confirm Password"
-        value={confirmPassword}
-        onChangeText={setConfirmPassword}
-        secureTextEntry
-        placeholderTextColor="#aaa"
-      />
-      <TouchableOpacity style={styles.button} onPress={handleSignup}>
-        <Text style={styles.buttonText}>Sign Up</Text>
-      </TouchableOpacity>
+
+
+    <View style = {styles.root}>
+      <Image source={LogoImg} 
+      
+      style = {[styles.LogoImg, {height: height * 0.3}]}
+       resizeMode='contain'/>
+       
+      <Text style = {styles.LogoText} > OneStep</Text>
+
+      <CustomInput placeholder={"Username"} value={username} setValue={setUsername}/>
+      <CustomInput placeholder={"email"} value={email} setValue={setEmail}/>
+      <CustomInput placeholder={"password"} value={password} setValue={setPassword} secureTextEntry={true}/>
+      <CustomInput placeholder={"confirm Password"} value={confirmPassword} setValue={setConfirmPassword} secureTextEntry={true}/>
+      <CustomButton text={"Sign up"} onPress={SigninPressed}/>
+
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center', 
-    paddingHorizontal: 20,
-    backgroundColor: '#f9f9f9',
-  },
-  title: {
-    fontSize: 28,
-    marginBottom: 40,
-    color: '#333',
-    fontWeight: 'bold',
-  },
-  input: {
-    height: 50,
-    width: '100%', 
-    borderColor: '#ddd',
-    borderWidth: 1,
-    borderRadius: 10,
-    marginBottom: 20,
-    paddingHorizontal: 15,
-    backgroundColor: '#fff',
-    color: '#333',
-    fontSize: 16,
-  },
-  button: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 15,
-    borderRadius: 10,
+  root:{
     alignItems: 'center',
-    width: '100%',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-});
+    padding: 20,
 
-export default SignupScreen;
+  },
+  LogoImg: {
+    maxWidth: 300,
+    maxHeight: 200,
+  },
+  LogoText:{
+    paddingBottom: 40,
+    color: 'white',
+    fontSize: 30,
+
+  }
+})
+
+export default SignupScreen
