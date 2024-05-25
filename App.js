@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import SignupScreen from './frontend/src/screens/SignupScreen';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+
 import * as firebase from 'firebase'
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAR7Pfvtr-1gG8CCRUUQyiREuZBn06qPcM",
   authDomain: "onestep-44122.firebaseapp.com",
@@ -19,20 +20,27 @@ if (firebase.apps.length == 0) {
   firebase.initializeApp(firebaseConfig);
 }
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>So much more that we can do</Text>
-      <StatusBar style="auto" />
-    </View>
+
+
+const App = () => {
+  return(
+    <SafeAreaView style ={styles.root}>
+      <SignupScreen/>  
+    </SafeAreaView>
+    
   );
-}
+};
+
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor:'black',
+    
+    
   },
+
 });
+
+
+export default App;
