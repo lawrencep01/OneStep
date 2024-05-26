@@ -1,14 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import SignupScreen from './frontend/src/screens/SignupScreen';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import LoginScreen from './frontend/src/screens/LoginScreen';
 
 const App = () => {
   return(
     <SafeAreaView style ={styles.root}>
-      <SignupScreen/>  
+      <LoginScreen/>
     </SafeAreaView>
     
   );
