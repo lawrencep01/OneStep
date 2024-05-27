@@ -28,8 +28,13 @@ const styles = StyleSheet.create({
 
     },
     container_TERTIARY: {
+        marginTop:10,
 
     },
+    container_SECONDARY: {
+        marginTop:150,
+    },
+
 
     text: {
         fontWeight: 'bold',
