@@ -29,6 +29,11 @@ const ForgotPassPress = () => {
     console.warn("Football")
 }
 
+const NoAccountPress = () => {
+    console.warn("Cheese")
+}
+
+
   return (
 
 
@@ -43,13 +48,22 @@ const ForgotPassPress = () => {
         <CustomInput placeholder={"email"} value={email} setValue={setEmail}/>
         <CustomInput placeholder={"password"} value={password} setValue={setPassword} secureTextEntry={true}/>
         <CustomButton text={"Log in"} onPress={LoginPressed}/>
-        
+
+
         
         <CustomButton 
             text={"Forgot Password"} 
             onPress={ForgotPassPress}
             type= "TERTIARY"
         />
+
+        <CustomButton 
+            style = {styles.signupStyle}
+            text={"No account? Singup"} 
+            onPress={NoAccountPress}
+            type= "SECONDARY"
+        />
+        
 
 
     </View>
@@ -65,13 +79,18 @@ const styles = StyleSheet.create({
     LogoImg: {
         maxWidth: 300,
         maxHeight: 200,
-  },
+    },
     LogoText:{
         paddingBottom: 40,
         color: 'white',
         fontSize: 30,
 
-  }
+    },
+    signupStyle: {
+        color:"green",
+        marginTop: -20,
+    }
+
 })
 
 export default LoginScreen
