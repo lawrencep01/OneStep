@@ -42,14 +42,14 @@ const SignupScreen = () => {
       
       style = {[styles.LogoImg, {height: height * 0.3}]}
        resizeMode='contain'/>
-       
+      
       <Text style = {styles.LogoText} > OneStep</Text>
 
       <CustomInput placeholder={"Username"} value={username} setValue={setUsername}/>
       <CustomInput placeholder={"email"} value={email} setValue={setEmail}/>
       <CustomInput placeholder={"password"} value={password} setValue={setPassword} secureTextEntry={true}/>
       <CustomInput placeholder={"confirm Password"} value={confirmPassword} setValue={setConfirmPassword} secureTextEntry={true}/>
-      <CustomButton text={"Sign up"} onPress={SigninPressed}/>
+      <CustomButton text={"Register"} onPress={SigninPressed}/>
 
     </View>
   );
@@ -70,7 +70,13 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 30,
 
-  }
+  },
+  divider: {
+        width: '100%',
+        height: 1,
+        backgroundColor: 'gray',
+        marginBottom: 20, // adjust as needed
+    },
 })
 
 export default SignupScreen
