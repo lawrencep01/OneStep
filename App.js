@@ -1,8 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import SignupScreen from './frontend/src/screens/SignupScreen';
-import * as firebase from 'firebase'
-//
+
+// correct firebase import
+import firebase from 'firebase/compat/app';
+
 const firebaseConfig = {
   apiKey: "AIzaSyAR7Pfvtr-1gG8CCRUUQyiREuZBn06qPcM",
   authDomain: "onestep-44122.firebaseapp.com",
@@ -14,11 +16,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-if (firebase.apps.length == 0) {
+/*if (firebase.apps.length == 0) {
   firebase.initializeApp(firebaseConfig);
-}
-
-
+};*/
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const App = () => {
   return(
