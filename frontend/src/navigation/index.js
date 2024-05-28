@@ -10,8 +10,17 @@ const ScreenStack = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Signup" component={SignupScreen} />
+        <Stack.Screen options={{headerShown: false}} name="Back to Login" component={LoginScreen} />
+        <Stack.Screen 
+        name="Signup" 
+        component={SignupScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: 'black', 
+          },
+          headerTintColor: '#fff', 
+      }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
