@@ -1,8 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
+import React from 'react';
+import ScreenStack from './frontend/src/navigation';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import SignupScreen from './frontend/src/screens/SignupScreen';
 
-// correct firebase import
 import firebase from 'firebase/compat/app';
 import LoginScreen from './frontend/src/screens/LoginScreen';
 
@@ -21,12 +20,11 @@ const firebaseConfig = {
 if (firebase.apps.length == 0) {
   firebase.initializeApp(firebaseConfig);
 };
-const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const App = () => {
   return(
     <SafeAreaView style ={styles.root}>
-      <LoginScreen/>  
+      <ScreenStack />  
     </SafeAreaView>
     
   );
@@ -37,8 +35,6 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor:'black',
-    
-    
   },
 
 });
