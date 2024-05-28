@@ -28,11 +28,11 @@ const styles = StyleSheet.create({
 
     },
     container_TERTIARY: {
-        marginTop:10,
+        marginVertical: 3,
 
     },
     container_SECONDARY: {
-        marginTop:150,
+        marginVertical: 3,
     },
 
 
@@ -45,6 +45,9 @@ const styles = StyleSheet.create({
         color: 'white',
 
     },
+    text_SECONDARY: {
+        color: 'white', 
+      },
 })
 
 export default CustomButton

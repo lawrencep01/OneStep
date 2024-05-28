@@ -57,8 +57,11 @@ const SignupScreen = () => {
 
 const styles = StyleSheet.create({
   root:{
+    flex: 1,
+    justifyContent: "center",
     alignItems: 'center',
     padding: 20,
+    backgroundColor: 'black',
 
   },
   LogoImg: {
