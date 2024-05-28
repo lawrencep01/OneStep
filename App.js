@@ -1,6 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import SignupScreen from './frontend/src/screens/SignupScreen';
+import TaskList from './frontend/src/components/TaskList';
+import { NavigationContainer } from '@react-navigation/native';
+
 
 // correct firebase import
 import firebase from 'firebase/compat/app';
