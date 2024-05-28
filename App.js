@@ -7,7 +7,7 @@ import LoginScreen from './frontend/src/screens/LoginScreen';
 const App = () => {
   return(
     <SafeAreaView style ={styles.root}>
-      <LoginScreen/>
+      <SignupScreen/>
     </SafeAreaView>
     
   );
