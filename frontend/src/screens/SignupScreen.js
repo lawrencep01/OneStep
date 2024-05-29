@@ -67,9 +67,10 @@ const styles = StyleSheet.create({
   LogoImg: {
     maxWidth: 300,
     maxHeight: 200,
+    marginTop: -40,
   },
   LogoText:{
-    paddingBottom: 40,
+    paddingBottom: 4,
     color: 'white',
     fontSize: 30,
 
