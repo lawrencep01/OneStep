@@ -4,6 +4,7 @@ import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import HomeScreen from '../screens/HomeScreen';
 
+
 const Stack = createStackNavigator();
 
 const ScreenStack = () => {
@@ -20,7 +21,9 @@ const ScreenStack = () => {
           },
           headerTintColor: '#fff', 
       }}
+      
         />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
