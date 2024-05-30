@@ -11,6 +11,8 @@ import { useNavigation } from "@react-navigation/native";
 import LogoImg from "../assets/images/favicon.png";
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
+import { auth } from "../../../firebase"; // Import auth from firebase configuration
+import { signInWithEmailAndPassword } from "firebase/auth"; // Import sign in function
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -23,11 +25,18 @@ const LoginScreen = () => {
       Alert.alert("Error", "All fields are required.");
       return;
     }
-    Alert.alert("Success", "Login successful!");
-    setEmail("");
-    setPassword("");
-  };
 
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      Alert.alert("Success", "Login successful!");
+      setEmail("");
+      setPassword("");
+      navigation.navigate("Home");
+    })
+    .catch((error) => {
+      Alert.alert("Error", error.message);
+    });
+  };
   const ForgotPassPress = () => {
     console.warn("Football");
   };
