@@ -27,16 +27,6 @@ const ScreenStack = () => {
           }} 
         />
         <Stack.Screen 
-        name="Signup" 
-        component={SignupScreen}
-        options={{
-          headerStyle: {
-            backgroundColor: 'black', 
-          },
-          headerTintColor: '#fff', 
-          }}
-        />
-        <Stack.Screen 
           name="Home" 
           component={HomeScreen} 
           options={{ headerShown: false }} 
