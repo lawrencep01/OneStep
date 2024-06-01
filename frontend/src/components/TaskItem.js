@@ -1,41 +1,51 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
-const TaskItem = ({ task, deleteTask, toggleCompleted }) => {
+const TaskItem = (props) => {
+
   return (
-    <View style={styles.taskContainer}>
-      <TouchableOpacity onPress={() => toggleCompleted(task.id)}>
-        <Text style={[styles.taskText, task.completed && styles.completed]}>
-          {task.title}
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => deleteTask(task.id)}>
-        <Text style={styles.deleteText}>Delete</Text>
-      </TouchableOpacity>
+    <View style={styles.item}>
+      <View style={styles.itemLeft}>
+        <View style={styles.square}></View>
+        <Text style={styles.itemText}>{props.text}</Text>
+      </View>
+      <View style={styles.circular}></View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
-  taskContainer: {
+  item: {
+    backgroundColor: '#FFF',
+    padding: 15,
+    borderRadius: 10,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 10,
-    marginVertical: 5,
-    backgroundColor: '#222',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  itemLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap'
+  },
+  square: {
+    width: 24,
+    height: 24,
+    backgroundColor: '#000000',
+    opacity: 0.4,
     borderRadius: 5,
+    marginRight: 15,
   },
-  taskText: {
-    color: 'white',
-    fontSize: 16,
+  itemText: {
+    maxWidth: '80%',
   },
-  completed: {
-    textDecorationLine: 'line-through',
-    color: 'gray',
-  },
-  deleteText: {
-    color: 'red',
+  circular: {
+    width: 12,
+    height: 12,
+    borderColor: '#000000',
+    borderWidth: 2,
+    borderRadius: 5,
   },
 });
 

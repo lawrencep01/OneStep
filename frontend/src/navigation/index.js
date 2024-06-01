@@ -36,8 +36,7 @@ const ScreenStack = () => {
           name="TaskList" 
           component={TaskScreen} 
           options={{ 
-            headerShown: true, 
-            title: 'Task List', 
+            headerShown: false, 
             headerStyle: {
               backgroundColor: 'black',
             },
