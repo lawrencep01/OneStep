@@ -56,4 +56,23 @@ export default function TaskList() {
       <Button title="Add" onPress={addTask} />
     </View>
   );
-}
+};
+const styles = StyleSheet.create({
+    root: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      padding: 20,
+      backgroundColor: 'black',
+    },
+    LogoImg: {
+      maxWidth: 300,
+      maxHeight: 200,
+      marginBottom: 5,
+    },
+    LogoText: {
+      marginBottom: 30,
+      color: "white",
+      fontSize: 35,
+    },
+  });
