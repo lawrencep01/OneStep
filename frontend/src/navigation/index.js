@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import HomeScreen from '../screens/HomeScreen';
-import TaskList from '../screens/TaskList';
+import TaskScreen from '../screens/TaskScreen';
 
 const Stack = createStackNavigator();
 
@@ -34,8 +34,15 @@ const ScreenStack = () => {
         />
         <Stack.Screen 
           name="TaskList" 
-          component={TaskList} 
-          options={{ headerShown: true, title: 'Task List' }} 
+          component={TaskScreen} 
+          options={{ 
+            headerShown: true, 
+            title: 'Task List', 
+            headerStyle: {
+              backgroundColor: 'black',
+            },
+            headerTintColor: '#fff',
+          }} 
         />
       </Stack.Navigator>
     </NavigationContainer>
