@@ -126,9 +126,11 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     backgroundColor: 'red',
-    flex: 1,
+    width: 353,
+    height: 53,
     alignItems: 'flex-end',
     justifyContent: 'center',
+    borderRadius: 10,
     paddingRight: 20,
   },
   deleteText: {
