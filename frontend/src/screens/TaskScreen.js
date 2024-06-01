@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView, Platform, index, Alert } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView, Platform, Alert } from 'react-native';
+import { SwipeListView } from 'react-native-swipe-list-view';
 import TaskItem from '../components/TaskItem';
 
 const TaskScreen = () => {
@@ -12,56 +13,63 @@ const TaskScreen = () => {
       return;
     }
     Keyboard.dismiss();
-    setTaskItems([...taskItems, task]);
+    setTaskItems([...taskItems, { text: task, completed: false }]);
     setTask('');
   };
 
   const completeTask = (index) => {
     let itemsCopy = [...taskItems];
+    itemsCopy[index].completed = !itemsCopy[index].completed;
+    setTaskItems(itemsCopy);
+  };
+
+  const deleteTask = (index) => {
+    let itemsCopy = [...taskItems];
     itemsCopy.splice(index, 1);
-    setTaskItems(itemsCopy)
+    setTaskItems(itemsCopy);
   };
 
   return (
     <View style={styles.container}>
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1
-        }}
-        keyboardShouldPersistTaps='handled'
-      >
-
-      {/* tasks */}
       <View style={styles.tasksWrapper}>
         <Text style={styles.sectionTitle}>My tasks</Text>
         <View style={styles.items}>
-          {
-            taskItems.map((item, index) => {
-              return (
-                <TouchableOpacity key={index}  onPress={() => completeTask(index)}>
-                  <TaskItem text={item} /> 
-                </TouchableOpacity>
-              )
-            })
-          }
+          <SwipeListView
+            data={taskItems}
+            renderItem={({ item, index }) => (
+              <TouchableOpacity key={index} onPress={() => completeTask(index)}>
+                <TaskItem text={item.text} completed={item.completed} />
+              </TouchableOpacity>
+            )}
+            renderHiddenItem={({ item, index }) => (
+              <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={() => deleteTask(index)}
+              >
+                <Text style={styles.deleteText}>Delete</Text>
+              </TouchableOpacity>
+            )}
+            rightOpenValue={-75}
+            keyExtractor={(item, index) => index.toString()}
+          />
         </View>
       </View>
-        
-      </ScrollView>
-
-      {/* writes a task */}
-      <KeyboardAvoidingView 
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.writeTaskWrapper}
       >
-        <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
+        <TextInput
+          style={styles.input}
+          placeholder={'Write a task'}
+          value={task}
+          onChangeText={text => setTask(text)}
+        />
         <TouchableOpacity onPress={() => handleAddTask()}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
-      
     </View>
   );
 }
@@ -72,6 +80,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   tasksWrapper: {
+    flex: 1,
     paddingTop: 20,
     paddingHorizontal: 20,
   },
@@ -81,6 +90,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   items: {
+    flex: 1,
     marginTop: 20,
   },
   writeTaskWrapper: {
@@ -113,6 +123,16 @@ const styles = StyleSheet.create({
   },
   addText: {
     color: 'black',
+  },
+  deleteButton: {
+    backgroundColor: 'red',
+    flex: 1,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    paddingRight: 20,
+  },
+  deleteText: {
+    color: 'white',
   },
 });
 
