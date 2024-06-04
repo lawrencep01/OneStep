@@ -2,28 +2,40 @@ import React, {useState, useEffect} from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView, Platform, Alert } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import TaskItem from '../components/TaskItem';
-import { database } from '../../../firebase';
+import { auth, database } from '../../../firebase';
 import { ref, set, push, onValue } from "firebase/database";
 
 const TaskScreen = () => {
   const [task, setTask] = useState('');
   const [taskItems, setTaskItems] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const taskRef = ref(database, 'tasks');
-    onValue(taskRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const tasks = Object.keys(data).map(key => ({
-          id: key,
-          ...data[key]
-        }));
-        setTaskItems(tasks);
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+        const userTaskRef = ref(database, `tasks/${user.uid}`);
+        onValue(userTaskRef, (snapshot) => {
+          const data = snapshot.val();
+          if (data) {
+            const tasks = Object.keys(data).map(key => ({
+              id: key,
+              ...data[key]
+            }));
+            setTaskItems(tasks);
+          } else {
+            setTaskItems([]);
+          }
+        });
       } else {
+        setUser(null);
         setTaskItems([]);
       }
     });
+
+    return () => unsubscribe();
   }, []);
+
 
   const handleAddTask = () => {
     if (task.trim().length === 0) {
@@ -31,7 +43,7 @@ const TaskScreen = () => {
       return;
     }
     Keyboard.dismiss();
-    const newTaskRef = push(ref(database, 'tasks'));
+    const newTaskRef = push(ref(database, 'tasks/' + user.uid));
     set(newTaskRef, {
       text: task,
       completed: false
@@ -40,16 +52,16 @@ const TaskScreen = () => {
   };
 
   const completeTask = (taskId) => {
+    const taskRef = ref(database, 'tasks/' + user.uid + '/' + taskId);
     const taskIndex = taskItems.findIndex(task => task.id === taskId);
     if (taskIndex >= 0) {
       const updatedTask = { ...taskItems[taskIndex], completed: !taskItems[taskIndex].completed };
-      const taskRef = ref(database, `tasks/${taskId}`);
       set(taskRef, updatedTask);
     }
   };
 
   const deleteTask = (taskId) => {
-    const taskRef = ref(database, `tasks/${taskId}`);
+    const taskRef = ref(database, 'tasks/' + user.uid + '/' + taskId);
     set(taskRef, null);
   };
 
