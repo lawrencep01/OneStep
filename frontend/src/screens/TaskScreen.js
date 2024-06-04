@@ -1,11 +1,29 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView, Platform, Alert } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import TaskItem from '../components/TaskItem';
+import { database } from '../../../firebase';
+import { ref, set, push, onValue } from "firebase/database";
 
 const TaskScreen = () => {
   const [task, setTask] = useState('');
   const [taskItems, setTaskItems] = useState([]);
+
+  useEffect(() => {
+    const taskRef = ref(database, 'tasks');
+    onValue(taskRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const tasks = Object.keys(data).map(key => ({
+          id: key,
+          ...data[key]
+        }));
+        setTaskItems(tasks);
+      } else {
+        setTaskItems([]);
+      }
+    });
+  }, []);
 
   const handleAddTask = () => {
     if (task.trim().length === 0) {
@@ -13,20 +31,26 @@ const TaskScreen = () => {
       return;
     }
     Keyboard.dismiss();
-    setTaskItems([...taskItems, { text: task, completed: false }]);
+    const newTaskRef = push(ref(database, 'tasks'));
+    set(newTaskRef, {
+      text: task,
+      completed: false
+    });
     setTask('');
   };
 
-  const completeTask = (index) => {
-    let itemsCopy = [...taskItems];
-    itemsCopy[index].completed = !itemsCopy[index].completed;
-    setTaskItems(itemsCopy);
+  const completeTask = (taskId) => {
+    const taskIndex = taskItems.findIndex(task => task.id === taskId);
+    if (taskIndex >= 0) {
+      const updatedTask = { ...taskItems[taskIndex], completed: !taskItems[taskIndex].completed };
+      const taskRef = ref(database, `tasks/${taskId}`);
+      set(taskRef, updatedTask);
+    }
   };
 
-  const deleteTask = (index) => {
-    let itemsCopy = [...taskItems];
-    itemsCopy.splice(index, 1);
-    setTaskItems(itemsCopy);
+  const deleteTask = (taskId) => {
+    const taskRef = ref(database, `tasks/${taskId}`);
+    set(taskRef, null);
   };
 
   return (
@@ -36,21 +60,21 @@ const TaskScreen = () => {
         <View style={styles.items}>
           <SwipeListView
             data={taskItems}
-            renderItem={({ item, index }) => (
-              <TouchableOpacity key={index} onPress={() => completeTask(index)}>
+            renderItem={({ item }) => (
+              <TouchableOpacity key={item.id} onPress={() => completeTask(item.id)}>
                 <TaskItem text={item.text} completed={item.completed} />
               </TouchableOpacity>
             )}
-            renderHiddenItem={({ item, index }) => (
+            renderHiddenItem={({ item }) => (
               <TouchableOpacity
                 style={styles.deleteButton}
-                onPress={() => deleteTask(index)}
+                onPress={() => deleteTask(item.id)}
               >
                 <Text style={styles.deleteText}>Delete</Text>
               </TouchableOpacity>
             )}
             rightOpenValue={-75}
-            keyExtractor={(item, index) => index.toString()}
+            keyExtractor={(item) => item.id}
           />
         </View>
       </View>
