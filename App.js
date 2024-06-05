@@ -1,9 +1,10 @@
 import React from 'react';
 import ScreenStack from './frontend/src/navigation';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-
 import firebase from 'firebase/compat/app';
-import LoginScreen from './frontend/src/screens/LoginScreen';
+import HomeScreen from './frontend/src/screens/HomeScreen';
+import SignupScreen from './frontend/src/screens/SignupScreen';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAR7Pfvtr-1gG8CCRUUQyiREuZBn06qPcM",
@@ -24,7 +25,7 @@ if (firebase.apps.length == 0) {
 const App = () => {
   return(
     <SafeAreaView style ={styles.root}>
-      <ScreenStack />  
+      <SignupScreen />  
     </SafeAreaView>
     
   );

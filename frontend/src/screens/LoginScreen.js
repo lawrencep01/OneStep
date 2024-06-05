@@ -64,16 +64,22 @@ const LoginScreen = () => {
 
       <Text style={styles.LogoText}> OneStep</Text>
 
+<<<<<<< HEAD
       <CustomInput placeholder={"email"} value={email} setValue={setEmail} autoCorrect={false} />
       <CustomInput placeholder={"password"} value={password} setValue={setPassword} secureTextEntry={true} />
+=======
+        <CustomInput placeholder={"email"} value={email} setValue={setEmail}/>
+        <CustomInput placeholder={"password"} value={password} setValue={setPassword} secureTextEntry={true}/>
+        <CustomButton text={"Log in"} onPress={LoginPressed}/>
+>>>>>>> 7098b89aee44d5f951376fc688b738cf035b1488
 
-      <CustomButton text={"Log In"} onPress={LoginPressed} />
 
-      <CustomButton
-        text={"Forgot Password"}
-        onPress={ForgotPassPress}
-        type="TERTIARY"
-      />
+        
+        <CustomButton 
+            text={"Forgot Password"} 
+            onPress={ForgotPassPress}
+            type= "TERTIARY"
+        />
 
       <CustomButton
         text={"No account? Sign Up"}

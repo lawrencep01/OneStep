@@ -17,32 +17,16 @@ const ScreenStack = () => {
           options={{ headerShown: false }} 
         />
         <Stack.Screen 
-          name="Signup" 
-          component={SignupScreen}
-          options={{
-            headerStyle: {
-              backgroundColor: 'black', 
-            },
-            headerTintColor: '#fff',
-            headerBackTitle: 'Back to Login',
-          }} 
+        name="Signup" 
+        component={SignupScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: 'black', 
+          },
+          headerTintColor: '#fff', 
+      }}
         />
-        <Stack.Screen 
-          name="Home" 
-          component={HomeScreen} 
-          options={{ headerShown: false }} 
-        />
-        <Stack.Screen 
-          name="TaskList" 
-          component={TaskScreen} 
-          options={{ 
-            headerStyle: {
-              backgroundColor: 'black',
-            },
-            headerTintColor: '#fff',
-            headerBackTitle: 'Home',
-          }} 
-        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

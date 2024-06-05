@@ -99,10 +99,17 @@ const styles = StyleSheet.create({
   LogoImg: {
     maxWidth: 300,
     maxHeight: 200,
+    marginTop: -40,
   },
+<<<<<<< HEAD
   LogoText: {
     paddingBottom: 40,
     color: "white",
+=======
+  LogoText:{
+    paddingBottom: 4,
+    color: 'white',
+>>>>>>> 7098b89aee44d5f951376fc688b738cf035b1488
     fontSize: 30,
   },
   divider: {
