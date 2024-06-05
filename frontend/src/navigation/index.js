@@ -36,11 +36,11 @@ const ScreenStack = () => {
           name="TaskList" 
           component={TaskScreen} 
           options={{ 
-            headerShown: false, 
             headerStyle: {
               backgroundColor: 'black',
             },
             headerTintColor: '#fff',
+            headerBackTitle: 'Home',
           }} 
         />
       </Stack.Navigator>

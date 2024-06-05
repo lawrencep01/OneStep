@@ -5,6 +5,8 @@ import {
   StyleSheet,
   useWindowDimensions,
   Alert,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -13,6 +15,7 @@ import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
 import { auth } from "../../../firebase"; // Import auth from firebase configuration
 import { signInWithEmailAndPassword } from "firebase/auth"; // Import sign in function
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -46,7 +49,13 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.root}>
+    <KeyboardAwareScrollView
+      contentContainerStyle={styles.root}
+      enableOnAndroid={true}
+      extraHeight={150}
+      keyboardShouldPersistTaps="handled"
+    >
+    <View style={styles.inner}>
       <Image
         source={LogoImg}
         style={[styles.LogoImg, { height: height * 0.25 }]}
@@ -55,7 +64,7 @@ const LoginScreen = () => {
 
       <Text style={styles.LogoText}> OneStep</Text>
 
-      <CustomInput placeholder={"email"} value={email} setValue={setEmail} />
+      <CustomInput placeholder={"email"} value={email} setValue={setEmail} autoCorrect={false} />
       <CustomInput placeholder={"password"} value={password} setValue={setPassword} secureTextEntry={true} />
 
       <CustomButton text={"Log In"} onPress={LoginPressed} />
@@ -72,16 +81,20 @@ const LoginScreen = () => {
         type="SECONDARY"
       />
     </View>
+    </KeyboardAwareScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    backgroundColor: 'black',
+  },
+  inner: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    backgroundColor: 'black',
   },
   LogoImg: {
     maxWidth: 300,
