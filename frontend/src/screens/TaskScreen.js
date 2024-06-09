@@ -11,7 +11,7 @@ import {
   Alert,
   Modal,
 } from "react-native";
-import { SwipeListView } from "react-native-swipe-list-view";
+import { SwipeListView} from "react-native-swipe-list-view";
 import TaskItem from "../components/TaskItem";
 import { auth, database } from "../../../firebase";
 import { ref, set, push, onValue } from "firebase/database";
@@ -102,7 +102,7 @@ const TaskScreen = () => {
       <View style={styles.tasksWrapper}>
         <Text style={styles.sectionTitle}>My Tasks</Text>
         <View style={styles.items}>
-          <SwipeListView
+        <SwipeListView
             data={taskItems}
             renderItem={({ item }) => (
               <TouchableOpacity
@@ -125,6 +125,7 @@ const TaskScreen = () => {
               </TouchableOpacity>
             )}
             rightOpenValue={-75}
+            disableRightSwipe
             keyExtractor={(item) => item.id}
           />
         </View>
@@ -247,7 +248,7 @@ const styles = StyleSheet.create({
   deleteButton: {
     backgroundColor: "red",
     width: 353,
-    height: 53,
+    height: 60,
     alignItems: "flex-end",
     justifyContent: "center",
     borderRadius: 10,
