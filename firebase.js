@@ -1,11 +1,15 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, initializeAuth, getReactNativePersistence } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getDatabase } from "firebase/database";
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+
 
 // Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAR7Pfvtr-1gG8CCRUUQyiREuZBn06qPcM",
   authDomain: "onestep-44122.firebaseapp.com",
+  databaseURL: "https://onestep-44122-default-rtdb.firebaseio.com",
   projectId: "onestep-44122",
   storageBucket: "onestep-44122.appspot.com",
   messagingSenderId: "133742872509",
@@ -16,9 +20,13 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize services
-const auth = getAuth(app);
-const firestore = getFirestore(app);
+// Initialize services with AsyncStorage for auth persistence
+const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(ReactNativeAsyncStorage),
+});
+//const firestore = getFirestore(app);
+const database = getDatabase(app);
 
-export { auth, firestore };
+
+export { auth, database };
 
