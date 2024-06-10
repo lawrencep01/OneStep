@@ -2,6 +2,7 @@ import React from 'react';
 import ScreenStack from './frontend/src/navigation';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import './firebase'; 
+import HomeScreen from './frontend/src/screens/HomeScreen';
 
 const App = () => {
   return(
