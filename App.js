@@ -4,6 +4,7 @@ import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import firebase from 'firebase/compat/app';
 import HomeScreen from './frontend/src/screens/HomeScreen';
 import SignupScreen from './frontend/src/screens/SignupScreen';
+import TaskScreen from './frontend/src/screens/TaskScreen';
 
 
 const firebaseConfig = {
@@ -25,7 +26,7 @@ if (firebase.apps.length == 0) {
 const App = () => {
   return(
     <SafeAreaView style ={styles.root}>
-      <SignupScreen />  
+      <ScreenStack />  
     </SafeAreaView>
     
   );

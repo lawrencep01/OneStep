@@ -5,8 +5,6 @@ import {
   StyleSheet,
   useWindowDimensions,
   Alert,
-  KeyboardAvoidingView,
-  Platform,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -15,7 +13,6 @@ import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
 import { auth } from "../../../firebase"; // Import auth from firebase configuration
 import { signInWithEmailAndPassword } from "firebase/auth"; // Import sign in function
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -29,19 +26,20 @@ const LoginScreen = () => {
       return;
     }
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      Alert.alert("Success", "Login successful!");
-      setEmail("");
-      setPassword("");
-      navigation.navigate("Home");
-    })
-    .catch((error) => {
-      Alert.alert("Error", error.message);
-    });
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        Alert.alert("Success", "Login successful!");
+        setEmail("");
+        setPassword("");
+        navigation.navigate("Home");
+      })
+      .catch((error) => {
+        Alert.alert("Error", error.message);
+      });
   };
+
   const ForgotPassPress = () => {
-    console.warn("Football");
+    console.warn("Forgot Password Pressed");
   };
 
   const NoAccountPress = () => {
@@ -49,54 +47,52 @@ const LoginScreen = () => {
   };
 
   return (
-    <KeyboardAwareScrollView
-      contentContainerStyle={styles.root}
-      enableOnAndroid={true}
-      extraHeight={150}
-      keyboardShouldPersistTaps="handled"
-    >
-    <View style={styles.inner}>
+    <View style={styles.root}>
       <Image
-        source={LogoImg}
-        style={[styles.LogoImg, { height: height * 0.25 }]}
-        resizeMode="contain"
+        source={require('../assets/images/Background.jpeg')}
+        style={styles.backgroundImage}
+        blurRadius={2}
       />
-
-      <Text style={styles.LogoText}> OneStep</Text>
-
-<<<<<<< HEAD
-      <CustomInput placeholder={"email"} value={email} setValue={setEmail} autoCorrect={false} />
-      <CustomInput placeholder={"password"} value={password} setValue={setPassword} secureTextEntry={true} />
-=======
-        <CustomInput placeholder={"email"} value={email} setValue={setEmail}/>
-        <CustomInput placeholder={"password"} value={password} setValue={setPassword} secureTextEntry={true}/>
-        <CustomButton text={"Log in"} onPress={LoginPressed}/>
->>>>>>> 7098b89aee44d5f951376fc688b738cf035b1488
-
-
-        
-        <CustomButton 
-            text={"Forgot Password"} 
-            onPress={ForgotPassPress}
-            type= "TERTIARY"
+      <View style={styles.overlay}>
+        <Image
+          source={LogoImg}
+          style={[styles.LogoImg, { height: height * 0.25 }]}
+          resizeMode="contain"
         />
 
-      <CustomButton
-        text={"No account? Sign Up"}
-        onPress={NoAccountPress}
-        type="SECONDARY"
-      />
+        <Text style={styles.LogoText}> OneStep</Text>
+
+        <CustomInput placeholder={"email"} value={email} setValue={setEmail} />
+        <CustomInput placeholder={"password"} value={password} setValue={setPassword} secureTextEntry={true} />
+
+        <CustomButton text={"Log In"} onPress={LoginPressed} />
+
+        <CustomButton
+          text={"Forgot Password"}
+          onPress={ForgotPassPress}
+          type="TERTIARY"
+        />
+
+        <CustomButton
+          text={"No account? Sign Up"}
+          onPress={NoAccountPress}
+          type="SECONDARY"
+        />
+      </View>
     </View>
-    </KeyboardAwareScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: 'black',
   },
-  inner: {
+  backgroundImage: {
+    ...StyleSheet.absoluteFillObject,
+    height: null,
+    width: null,
+  },
+  overlay: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",

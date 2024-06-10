@@ -58,32 +58,39 @@ const SignupScreen = () => {
   return (
     <View style={styles.root}>
       <Image
-        source={LogoImg}
-        style={[styles.LogoImg, { height: height * 0.3 }]}
-        resizeMode="contain"
+        source={require('../assets/images/Background.jpeg')}
+        style={styles.backgroundImage}
+        blurRadius={2}
       />
+      <View style={styles.overlay}>
+        <Image
+          source={LogoImg}
+          style={[styles.LogoImg, { height: height * 0.3 }]}
+          resizeMode="contain"
+        />
 
-      <Text style={styles.LogoText}> OneStep</Text>
+        <Text style={styles.LogoText}> OneStep</Text>
 
-      <CustomInput
-        placeholder={"Username"}
-        value={username}
-        setValue={setUsername}
-      />
-      <CustomInput placeholder={"email"} value={email} setValue={setEmail} />
-      <CustomInput
-        placeholder={"password"}
-        value={password}
-        setValue={setPassword}
-        secureTextEntry={true}
-      />
-      <CustomInput
-        placeholder={"confirm Password"}
-        value={confirmPassword}
-        setValue={setConfirmPassword}
-        secureTextEntry={true}
-      />
-      <CustomButton text={"Register"} onPress={SigninPressed} />
+        <CustomInput
+          placeholder={"Username"}
+          value={username}
+          setValue={setUsername}
+        />
+        <CustomInput placeholder={"email"} value={email} setValue={setEmail} />
+        <CustomInput
+          placeholder={"password"}
+          value={password}
+          setValue={setPassword}
+          secureTextEntry={true}
+        />
+        <CustomInput
+          placeholder={"confirm Password"}
+          value={confirmPassword}
+          setValue={setConfirmPassword}
+          secureTextEntry={true}
+        />
+        <CustomButton text={"Register"} onPress={SigninPressed} />
+      </View>
     </View>
   );
 };
@@ -91,25 +98,25 @@ const SignupScreen = () => {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+  },
+  backgroundImage: {
+    ...StyleSheet.absoluteFillObject,
+    height: null,
+    width: null,
+  },
+  overlay: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    backgroundColor: "black",
   },
   LogoImg: {
     maxWidth: 300,
     maxHeight: 200,
-    marginTop: -40,
   },
-<<<<<<< HEAD
   LogoText: {
     paddingBottom: 40,
     color: "white",
-=======
-  LogoText:{
-    paddingBottom: 4,
-    color: 'white',
->>>>>>> 7098b89aee44d5f951376fc688b738cf035b1488
     fontSize: 30,
   },
   divider: {
