@@ -1,7 +1,10 @@
-import { View, Text, Image, StyleSheet, useWindowDimensions, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, useWindowDimensions } from 'react-native';
 import React from 'react';
 import LogoImg from '../assets/images/favicon.png';
 import CustomButton from '../components/CustomButton';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
 
 const HomeScreen = ({ navigation }) => {
   const { height } = useWindowDimensions();
@@ -25,17 +28,24 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.root}>
       <Image
-        source={LogoImg}
-        style={[styles.LogoImg, { height: height * 0.3 }]}
-        resizeMode='contain'
+        source={require('../assets/images/Background.jpeg')}
+        style={styles.backgroundImage}
+        blurRadius={2}
       />
-      <Text style={styles.LogoText}>Welcome to OneStep</Text>
+      <View style={styles.overlay}>
+        <Image
+          source={LogoImg}
+          style={[styles.LogoImg, { height: height * 0.3 }]}
+          resizeMode='contain'
+        />
+        <Text style={styles.LogoText}>Welcome to OneStep</Text>
 
-      <View style={styles.buttonContainer}>
-        <CustomButton text={"Profile"} onPress={onProfilePress} />
-        <CustomButton text={"Settings"} onPress={onSettingsPress} />
-        <CustomButton text={"Task List"} onPress={onTaskListPress} />
-        <CustomButton text={"Logout"} onPress={onLogoutPress} />
+        <View style={styles.buttonContainer}>
+          <CustomButton text={"Profile"} onPress={onProfilePress} />
+          <CustomButton text={"Settings"} onPress={onSettingsPress} />
+          <CustomButton text={"Task List"} onPress={onTaskListPress} />
+          <CustomButton text={"Logout"} onPress={onLogoutPress} />
+        </View>
       </View>
     </View>
   );
@@ -44,10 +54,17 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+  },
+  backgroundImage: {
+    ...StyleSheet.absoluteFillObject,
+    height: null,
+    width: null,
+  },
+  overlay: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: 'black',
   },
   LogoImg: {
     maxWidth: 300,
