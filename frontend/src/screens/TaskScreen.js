@@ -11,7 +11,7 @@ import {
   Alert,
   Modal,
 } from "react-native";
-import { SwipeListView} from "react-native-swipe-list-view";
+import { SwipeListView } from "react-native-swipe-list-view";
 import TaskItem from "../components/TaskItem";
 import { auth, database } from "../../../firebase";
 import { ref, set, push, onValue } from "firebase/database";
@@ -34,15 +34,8 @@ const TaskScreen = () => {
         const userTaskRef = ref(database, `tasks/${user.uid}`);
         onValue(userTaskRef, (snapshot) => {
           const data = snapshot.val();
-          if (data) {
-            const tasks = Object.keys(data).map((key) => ({
-              id: key,
-              ...data[key],
-            }));
-            setTaskItems(tasks);
-          } else {
-            setTaskItems([]);
-          }
+          const tasks = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
+          setTaskItems(tasks);
         });
       } else {
         setUser(null);
@@ -54,12 +47,12 @@ const TaskScreen = () => {
   }, []);
 
   const handleAddTask = () => {
-    if (task.trim().length === 0) {
+    if (!task.trim()) {
       Alert.alert("Error", "Task cannot be empty");
       return;
     }
     Keyboard.dismiss();
-    const newTaskRef = push(ref(database, "tasks/" + user.uid));
+    const newTaskRef = push(ref(database, `tasks/${user.uid}`));
     set(newTaskRef, {
       text: task,
       completed: false,
@@ -71,24 +64,17 @@ const TaskScreen = () => {
   };
 
   const completeTask = (taskId) => {
-    const taskRef = ref(database, "tasks/" + user.uid + "/" + taskId);
-    const taskIndex = taskItems.findIndex((task) => task.id === taskId);
+    const taskRef = ref(database, `tasks/${user.uid}/${taskId}`);
+    const taskIndex = taskItems.findIndex(task => task.id === taskId);
     if (taskIndex >= 0) {
-      const updatedTask = {
-        ...taskItems[taskIndex],
-        completed: !taskItems[taskIndex].completed,
-      };
+      const updatedTask = { ...taskItems[taskIndex], completed: !taskItems[taskIndex].completed };
       set(taskRef, updatedTask);
     }
   };
 
   const deleteTask = (taskId) => {
-    const taskRef = ref(database, "tasks/" + user.uid + "/" + taskId);
+    const taskRef = ref(database, `tasks/${user.uid}/${taskId}`);
     set(taskRef, null);
-  };
-
-  const showDatePicker = () => {
-    setShowPicker(true);
   };
 
   const onDateChange = (event, selectedDate) => {
@@ -102,12 +88,13 @@ const TaskScreen = () => {
       <View style={styles.tasksWrapper}>
         <Text style={styles.sectionTitle}>My Tasks</Text>
         <View style={styles.items}>
-        <SwipeListView
+          <SwipeListView
             data={taskItems}
             renderItem={({ item }) => (
               <TouchableOpacity
                 key={item.id}
                 onPress={() => completeTask(item.id)}
+                style={styles.rowFront}
               >
                 <TaskItem
                   text={item.text}
@@ -117,42 +104,46 @@ const TaskScreen = () => {
               </TouchableOpacity>
             )}
             renderHiddenItem={({ item }) => (
-              <TouchableOpacity
-                style={styles.deleteButton}
-                onPress={() => deleteTask(item.id)}
-              >
-                <Text style={styles.deleteText}>Delete</Text>
-              </TouchableOpacity>
+              <View style={styles.rowBack}>
+                <TouchableOpacity
+                  style={styles.deleteButton}
+                  onPress={() => deleteTask(item.id)}
+                >
+                  <Text style={styles.deleteText}>Delete</Text>
+                </TouchableOpacity>
+              </View>
             )}
             rightOpenValue={-75}
             disableRightSwipe
-            keyExtractor={(item) => item.id}
+            keyExtractor={item => item.id}
           />
         </View>
       </View>
+
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeTaskWrapper}
+        keyboardVerticalOffset={110}
       >
         <TextInput
           style={styles.input}
-          placeholder={"Write a task"}
+          placeholder="Write a task"
           value={task}
-          onChangeText={(text) => setTask(text)}
+          onChangeText={setTask}
         />
         <TouchableOpacity onPress={() => setShowModal(true)}>
           <View style={styles.dateWrapper}>
             <FontAwesome name="calendar" size={30} color="black" />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleAddTask()}>
+        <TouchableOpacity onPress={handleAddTask}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
 
-      <Modal visible={showModal} transparent={true} animationType="slide">
+      <Modal visible={showModal} transparent animationType="slide">
         <View style={styles.modalContainer}>
           <View style={styles.modalView}>
             <TouchableOpacity
@@ -164,7 +155,7 @@ const TaskScreen = () => {
             <Text style={styles.modalText}>Select Date and Time</Text>
             <DateTimePicker
               value={date}
-              mode={"datetime"}
+              mode="datetime"
               display="default"
               onChange={onDateChange}
             />
@@ -200,22 +191,52 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 20,
   },
-  writeTaskWrapper: {
-    position: "absolute",
-    bottom: 15,
+  rowFront: {
+    backgroundColor: "#FFF",
+    marginVertical: 15, 
+    borderRadius: 10,
+    height: 60,
+    justifyContent: "center",
+  },
+  rowBack: {
+    backgroundColor: "black",
+    marginVertical: 15, 
+    borderRadius: 10,
+    height: 60,
+    justifyContent: "center",
+  },
+  deleteButton: {
+    backgroundColor: "red",
+    height: 60,
     width: "100%",
+    flexDirection: "row", 
+    alignItems: "center",
+    justifyContent: "flex-end", 
+    borderRadius: 10,
+    paddingRight: 20,
+    paddingLeft: 20,
+  },
+  deleteText: {
+    color: "white",
+    fontWeight: "bold", 
+  },
+  writeTaskWrapper: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    backgroundColor: "black",
   },
   input: {
+    flex: 1,
     paddingVertical: 15,
     paddingHorizontal: 15,
     backgroundColor: "#FFF",
     borderRadius: 60,
     borderColor: "#C0C0C0",
     borderWidth: 1,
-    width: 200,
+    marginRight: 10,
     color: "black",
   },
   addWrapper: {
@@ -240,22 +261,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: "#C0C0C0",
     borderWidth: 1,
+    marginRight: 10,
   },
   dateText: {
     color: "black",
     fontSize: 25,
-  },
-  deleteButton: {
-    backgroundColor: "red",
-    width: 353,
-    height: 60,
-    alignItems: "flex-end",
-    justifyContent: "center",
-    borderRadius: 10,
-    paddingRight: 20,
-  },
-  deleteText: {
-    color: "white",
   },
   modalContainer: {
     flex: 1,
@@ -302,5 +312,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-
 export default TaskScreen;
