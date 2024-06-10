@@ -4,24 +4,31 @@
     "slug": "OneStep",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./frontend/src/assets/images/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./frontend/src/assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lvp2dun.OneStep"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./frontend/src/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.lvp2dun.OneStep"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./frontend/src/assets/images/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "43b7cb5b-77ce-47ac-a11c-888e99bf26c3"
+      }
     }
   }
 }
