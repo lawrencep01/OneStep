@@ -13,7 +13,9 @@ const TaskItem = (props) => {
       <View style={styles.itemLeft}>
         <View style={props.completed ? styles.completedSquare : styles.square}></View>
         <View>
-          <Text style={props.completed ? styles.itemTextCompleted : styles.itemText}>{props.text}</Text>
+          <Text style={props.completed ? styles.itemTextCompleted : styles.itemText}>
+            {props.text}
+          </Text>
           <Text style={styles.dateText}>{formatDateTime(props.dateTime)}</Text>
         </View>
       </View>
@@ -30,12 +32,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: 15,
   },
   itemLeft: {
     flexDirection: 'row',
     alignItems: 'center',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   square: {
     width: 24,
