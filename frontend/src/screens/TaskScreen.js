@@ -6,6 +6,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  TouchableHighlight,
   Keyboard,
   Platform,
   Alert,
@@ -119,12 +120,14 @@ const TaskScreen = () => {
           <SwipeListView
             data={taskItems}
             renderItem={({ item }) => (
-              <TouchableOpacity
+              <TouchableHighlight
+                //activeOpacity={0.6}
+                underlayColor="#DDDDDD"
                 key={item.id}
                 onPress={() => completeTask(item.id)}
                 style={styles.rowFront}>
                 <TaskItem text={item.text} completed={item.completed} dateTime={item.dateTime} />
-              </TouchableOpacity>
+              </TouchableHighlight>
             )}
             renderHiddenItem={({ item }) => (
               <View style={styles.rowBack}>
@@ -231,7 +234,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     marginVertical: 15,
     borderRadius: 10,
-    height: 60,
+    height: 55,
     justifyContent: 'center',
   },
   deleteButton: {
@@ -242,7 +245,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
     borderRadius: 10,
-    paddingRight: 20,
+    paddingRight: 16,
     paddingLeft: 20,
   },
   deleteText: {
