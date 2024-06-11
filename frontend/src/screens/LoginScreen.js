@@ -1,49 +1,42 @@
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  useWindowDimensions,
-  Alert,
-} from "react-native";
-import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import LogoImg from "../assets/images/favicon.png";
-import CustomInput from "../components/CustomInput";
-import CustomButton from "../components/CustomButton";
-import { auth } from "../../../firebase"; // Import auth from firebase configuration
-import { signInWithEmailAndPassword } from "firebase/auth"; // Import sign in function
+import { View, Text, Image, StyleSheet, useWindowDimensions, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import LogoImg from '../assets/images/favicon.png';
+import CustomInput from '../components/CustomInput';
+import CustomButton from '../components/CustomButton';
+import { auth } from '../../../firebase'; // Import auth from firebase configuration
+import { signInWithEmailAndPassword } from 'firebase/auth'; // Import sign in function
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const { height } = useWindowDimensions();
   const navigation = useNavigation();
 
   const LoginPressed = () => {
     if (!email || !password) {
-      Alert.alert("Error", "All fields are required.");
+      Alert.alert('Error', 'All fields are required.');
       return;
     }
 
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        Alert.alert("Success", "Login successful!");
-        setEmail("");
-        setPassword("");
-        navigation.navigate("Home");
+        Alert.alert('Success', 'Login successful!');
+        setEmail('');
+        setPassword('');
+        navigation.navigate('Home');
       })
       .catch((error) => {
-        Alert.alert("Error", error.message);
+        Alert.alert('Error', error.message);
       });
   };
 
   const ForgotPassPress = () => {
-    console.warn("Forgot Password Pressed");
+    console.warn('Forgot Password Pressed');
   };
 
   const NoAccountPress = () => {
-    navigation.navigate("Signup");
+    navigation.navigate('Signup');
   };
 
   return (
@@ -62,22 +55,19 @@ const LoginScreen = () => {
 
         <Text style={styles.LogoText}> OneStep</Text>
 
-        <CustomInput placeholder={"email"} value={email} setValue={setEmail} />
-        <CustomInput placeholder={"password"} value={password} setValue={setPassword} secureTextEntry={true} />
-
-        <CustomButton text={"Log In"} onPress={LoginPressed} />
-
-        <CustomButton
-          text={"Forgot Password"}
-          onPress={ForgotPassPress}
-          type="TERTIARY"
+        <CustomInput placeholder={'email'} value={email} setValue={setEmail} />
+        <CustomInput
+          placeholder={'password'}
+          value={password}
+          setValue={setPassword}
+          secureTextEntry={true}
         />
 
-        <CustomButton
-          text={"No account? Sign Up"}
-          onPress={NoAccountPress}
-          type="SECONDARY"
-        />
+        <CustomButton text={'Log In'} onPress={LoginPressed} />
+
+        <CustomButton text={'Forgot Password'} onPress={ForgotPassPress} type="TERTIARY" />
+
+        <CustomButton text={'No account? Sign Up'} onPress={NoAccountPress} type="SECONDARY" />
       </View>
     </View>
   );
@@ -94,8 +84,8 @@ const styles = StyleSheet.create({
   },
   overlay: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 20,
   },
   LogoImg: {
@@ -105,7 +95,7 @@ const styles = StyleSheet.create({
   },
   LogoText: {
     marginBottom: 30,
-    color: "white",
+    color: 'white',
     fontSize: 35,
   },
 });
