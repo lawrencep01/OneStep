@@ -17,8 +17,12 @@ const SingleTaskScreen = () => {
         const userTaskRef = ref(database, `tasks/${user.uid}`);
         onValue(userTaskRef, (snapshot) => {
           const data = snapshot.val();
-          const tasksList = data ? Object.keys(data).map((key) => ({ id: key, ...data[key] })) : [];
-          tasksList.sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
+          const tasksList = data
+            ? Object.keys(data)
+                .map((key) => ({ id: key, ...data[key] }))
+                .filter((task) => !task.completed)
+                .sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime))
+            : [];
           setTasks(tasksList);
           setTask(tasksList[0] || null);
         });
