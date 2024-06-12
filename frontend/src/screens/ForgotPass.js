@@ -7,7 +7,7 @@ import CustomButton from '../components/CustomButton';
 import { auth } from '../../../firebase'; // Import auth from firebase configuration
 import { signInWithEmailAndPassword } from 'firebase/auth'; // Import sign in function
 
-const LoginScreen = () => {
+const ForgotPass = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { height } = useWindowDimensions();
@@ -31,8 +31,8 @@ const LoginScreen = () => {
       });
   };
 
-  const ForgotPassPress = () => {
-    console.warn('Forgot Password Pressed');
+  const BackToLog = () => {
+    navigation.navigate('Login')
   };
 
   const NoAccountPress = () => {
@@ -44,7 +44,7 @@ const LoginScreen = () => {
       <Image
         source={require('../assets/images/Background.jpeg')}
         style={styles.backgroundImage}
-        blurRadius={2}
+        blurRadius={20}
       />
       <View style={styles.overlay}>
         <Image
@@ -53,19 +53,14 @@ const LoginScreen = () => {
           resizeMode="contain"
         />
 
-        <Text style={styles.LogoText}> OneStep</Text>
+        <Text style={styles.LogoText}> Reset Password </Text>
 
         <CustomInput placeholder={'email'} value={email} setValue={setEmail} />
-        <CustomInput
-          placeholder={'password'}
-          value={password}
-          setValue={setPassword}
-          secureTextEntry={true}
-        />
+        
 
-        <CustomButton text={'Log In'} onPress={LoginPressed} />
+        <CustomButton text={'Reset Password'} onPress={LoginPressed} />
 
-        <CustomButton text={'Forgot Password'} onPress={ForgotPassPress} type="TERTIARY" />
+        <CustomButton text={'Back to Log in'} onPress={BackToLog} type="TERTIARY" />
 
         <CustomButton text={'No account? Sign Up'} onPress={NoAccountPress} type="SECONDARY" />
       </View>
@@ -100,4 +95,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default ForgotPass;

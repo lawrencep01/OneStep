@@ -2,7 +2,43 @@ import { View, Text, Image, StyleSheet, useWindowDimensions } from 'react-native
 import React from 'react';
 import LogoImg from '../assets/images/favicon.png';
 import CustomButton from '../components/CustomButton';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+const HomeScreen = ({ navigation }) => {
+
+  const Tab = createBottomTabNavigator();
+
+  const screenOptions = {
+    tabBarShowLabel: false,
+    headerShown: false,
+    tabBarStyle:{
+      position: "absolute",
+      bottom:0,
+      right:0,
+      left:0,
+      elevation:0,
+      height:60,
+      background: 'white'
+    }
+  }
+
+
+  const { height } = useWindowDimensions();
+  return(
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name = "TaskList" component={navigation}/>
+        <Tab.Screen name = "TaskList" component={navigation}/>
+        <Tab.Screen name = "TaskList" component={navigation}/>
+        <Tab.Screen name = "TaskList" component={navigation}/>
+      </Tab.Navigator>
+    </NavigationContainer>
+  )
+}
+
+
+/*
 const HomeScreen = ({ navigation }) => {
   const { height } = useWindowDimensions();
 
@@ -27,7 +63,7 @@ const HomeScreen = ({ navigation }) => {
       <Image
         source={require('../assets/images/Background.jpeg')}
         style={styles.backgroundImage}
-        blurRadius={2}
+        blurRadius={20}
       />
       <View style={styles.overlay}>
         <Image
@@ -38,7 +74,9 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.LogoText}>Welcome to OneStep</Text>
 
         <View style={styles.buttonContainer}>
-          <CustomButton text={'Profile'} onPress={onProfilePress} />
+          
+          
+          |<CustomButton text={'Profile'} onPress={onProfilePress} />
           <CustomButton text={'Settings'} onPress={onSettingsPress} />
           <CustomButton text={'Task List'} onPress={onTaskListPress} />
           <CustomButton text={'Logout'} onPress={onLogoutPress} />
@@ -47,6 +85,8 @@ const HomeScreen = ({ navigation }) => {
     </View>
   );
 };
+*/
+
 
 const styles = StyleSheet.create({
   root: {

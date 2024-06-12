@@ -32,7 +32,7 @@ const LoginScreen = () => {
   };
 
   const ForgotPassPress = () => {
-    console.warn('Forgot Password Pressed');
+    navigation.navigate('Forgot');
   };
 
   const NoAccountPress = () => {

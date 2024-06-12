@@ -3,14 +3,20 @@ import React, { useState } from 'react';
 import LogoImg from '../assets/images/favicon.png';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
+import { useNavigation } from '@react-navigation/native';
 import { auth } from '../../../firebase'; // Import auth from firebase configuration
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'; // Import required functions
+
+
+
+  
 
 const SignupScreen = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const navigation = useNavigation();
 
   const { height } = useWindowDimensions();
 
@@ -20,6 +26,11 @@ const SignupScreen = () => {
       return;
     }
 
+
+   
+
+    
+    
     if (password !== confirmPassword) {
       Alert.alert('Error', 'Passwords do not match.');
       return;
@@ -47,13 +58,18 @@ const SignupScreen = () => {
         Alert.alert('Error', error.message);
       });
   };
+ const BackToLog = () => {
+      navigation.navigate('Login');
+    }
+
+
 
   return (
     <View style={styles.root}>
       <Image
         source={require('../assets/images/Background.jpeg')}
         style={styles.backgroundImage}
-        blurRadius={2}
+        blurRadius={20}
       />
       <View style={styles.overlay}>
         <Image
@@ -62,7 +78,7 @@ const SignupScreen = () => {
           resizeMode="contain"
         />
 
-        <Text style={styles.LogoText}> OneStep</Text>
+        <Text style={styles.LogoText}> Sign Up</Text>
 
         <CustomInput placeholder={'Username'} value={username} setValue={setUsername} />
         <CustomInput placeholder={'email'} value={email} setValue={setEmail} />
@@ -79,6 +95,8 @@ const SignupScreen = () => {
           secureTextEntry={true}
         />
         <CustomButton text={'Register'} onPress={SigninPressed} />
+        <CustomButton text={'Already have an account? Back to Log in'} onPress={BackToLog} type="SECONDARY" />
+
       </View>
     </View>
   );
