@@ -12,7 +12,7 @@ const TaskItem = (props) => {
     <View style={styles.item}>
       <View style={styles.itemLeft}>
         <View style={props.completed ? styles.completedSquare : styles.square}></View>
-        <View>
+        <View style={styles.textContainer}>
           <Text style={props.completed ? styles.itemTextCompleted : styles.itemText}>
             {props.text}
           </Text>
@@ -33,11 +33,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 15,
+    flexWrap: 'wrap',
   },
   itemLeft: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
     flexWrap: 'wrap',
+  },
+  textContainer: {
+    flexShrink: 1,
   },
   square: {
     width: 24,
@@ -56,12 +61,14 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   itemText: {
-    maxWidth: '80%',
+    maxWidth: '100%',
+    flexWrap: 'wrap',
   },
   itemTextCompleted: {
-    maxWidth: '80%',
+    maxWidth: '100%',
     textDecorationLine: 'line-through',
     color: 'grey',
+    flexWrap: 'wrap',
   },
   dateText: {
     fontSize: 12,
