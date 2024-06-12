@@ -1,44 +1,22 @@
 import React from 'react';
 import ScreenStack from './frontend/src/navigation';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import firebase from 'firebase/compat/app';
-import HomeScreen from './frontend/src/screens/HomeScreen';
-import SignupScreen from './frontend/src/screens/SignupScreen';
-
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAR7Pfvtr-1gG8CCRUUQyiREuZBn06qPcM",
-  authDomain: "onestep-44122.firebaseapp.com",
-  projectId: "onestep-44122",
-  storageBucket: "onestep-44122.appspot.com",
-  messagingSenderId: "133742872509",
-  appId: "1:133742872509:web:760c07dfb8df138fa934d4",
-  measurementId: "G-LVJKCMF1Q9"
-};
-
-
-//Initialize Firebase
-if (firebase.apps.length == 0) {
-  firebase.initializeApp(firebaseConfig);
-};
+import 'react-native-gesture-handler';
+import { SafeAreaView, StyleSheet } from 'react-native';
+import './firebase';
 
 const App = () => {
-  return(
-    <SafeAreaView style ={styles.root}>
-      <SignupScreen />  
+  return (
+    <SafeAreaView style={styles.root}>
+      <ScreenStack />
     </SafeAreaView>
-    
   );
 };
-
 
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor:'black',
+    backgroundColor: 'black',
   },
-
 });
-
 
 export default App;
