@@ -1,4 +1,13 @@
-import { View, Text, Image, StyleSheet, useWindowDimensions, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  useWindowDimensions,
+  Alert,
+  KeyboardAvoidingView,
+  ScrollView,
+} from 'react-native';
 import React, { useState } from 'react';
 import LogoImg from '../assets/images/favicon.png';
 import CustomInput from '../components/CustomInput';
@@ -49,44 +58,49 @@ const SignupScreen = () => {
   };
 
   return (
-    <View style={styles.root}>
-      <Image
-        source={require('../assets/images/Background.jpeg')}
-        style={styles.backgroundImage}
-        blurRadius={2}
-      />
-      <View style={styles.overlay}>
+    <KeyboardAvoidingView style={styles.root} behavior="padding">
+      <ScrollView contentContainerStyle={styles.container}>
         <Image
-          source={LogoImg}
-          style={[styles.LogoImg, { height: height * 0.3 }]}
-          resizeMode="contain"
+          source={require('../assets/images/Background.jpeg')}
+          style={styles.backgroundImage}
+          blurRadius={2}
         />
+        <View style={styles.overlay}>
+          <Image
+            source={LogoImg}
+            style={[styles.LogoImg, { height: height * 0.3, marginTop: -50 }]}
+            resizeMode="contain"
+          />
 
-        <Text style={styles.LogoText}> OneStep</Text>
+          <Text style={styles.LogoText}> OneStep</Text>
 
-        <CustomInput placeholder={'Username'} value={username} setValue={setUsername} />
-        <CustomInput placeholder={'email'} value={email} setValue={setEmail} />
-        <CustomInput
-          placeholder={'password'}
-          value={password}
-          setValue={setPassword}
-          secureTextEntry={true}
-        />
-        <CustomInput
-          placeholder={'confirm Password'}
-          value={confirmPassword}
-          setValue={setConfirmPassword}
-          secureTextEntry={true}
-        />
-        <CustomButton text={'Register'} onPress={SigninPressed} />
-      </View>
-    </View>
+          <CustomInput placeholder={'Username'} value={username} setValue={setUsername} />
+          <CustomInput placeholder={'Email'} value={email} setValue={setEmail} />
+          <CustomInput
+            placeholder={'Password'}
+            value={password}
+            setValue={setPassword}
+            secureTextEntry={true}
+          />
+          <CustomInput
+            placeholder={'Confirm Password'}
+            value={confirmPassword}
+            setValue={setConfirmPassword}
+            secureTextEntry={true}
+          />
+          <CustomButton text={'Register'} onPress={SigninPressed} />
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+  },
+  container: {
+    flexGrow: 1,
   },
   backgroundImage: {
     ...StyleSheet.absoluteFillObject,
@@ -104,9 +118,9 @@ const styles = StyleSheet.create({
     maxHeight: 200,
   },
   LogoText: {
-    paddingBottom: 40,
+    paddingBottom: 30,
     color: 'white',
-    fontSize: 30,
+    fontSize: 35,
   },
   divider: {
     width: '100%',
