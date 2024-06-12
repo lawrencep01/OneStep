@@ -11,6 +11,7 @@ import {
   Platform,
   Alert,
   Modal,
+  ScrollView,
 } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import TaskItem from '../components/TaskItem';
@@ -121,7 +122,6 @@ const TaskScreen = () => {
             data={taskItems}
             renderItem={({ item }) => (
               <TouchableHighlight
-                //activeOpacity={0.6}
                 underlayColor="#DDDDDD"
                 key={item.id}
                 onPress={() => completeTask(item.id)}
@@ -147,12 +147,15 @@ const TaskScreen = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.writeTaskWrapper}
         keyboardVerticalOffset={110}>
-        <TextInput
-          style={styles.input}
-          placeholder="Write a task"
-          value={task}
-          onChangeText={setTask}
-        />
+        <ScrollView style={styles.inputScrollView}>
+          <TextInput
+            style={styles.input}
+            placeholder="Write a task"
+            value={task}
+            onChangeText={setTask}
+            multiline
+          />
+        </ScrollView>
         <TouchableOpacity onPress={() => setShowModal(true)}>
           <View style={styles.dateWrapper}>
             <FontAwesome name="calendar" size={30} color="black" />
@@ -227,19 +230,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     marginVertical: 15,
     borderRadius: 10,
-    height: 60,
-    justifyContent: 'center',
+    flexWrap: 'wrap',
   },
   rowBack: {
     backgroundColor: 'black',
     marginVertical: 15,
     borderRadius: 10,
-    height: 55,
-    justifyContent: 'center',
+    flexWrap: 'wrap',
   },
   deleteButton: {
     backgroundColor: 'red',
-    height: 60,
+    height: '100%',
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
@@ -260,16 +261,18 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor: 'black',
   },
-  input: {
+  inputScrollView: {
     flex: 1,
+    maxHeight: 100,
+    width: '100%',
+  },
+  input: {
     paddingVertical: 15,
     paddingHorizontal: 15,
     backgroundColor: '#FFF',
     borderRadius: 60,
-    height: 60,
     borderColor: '#C0C0C0',
     borderWidth: 1,
-    marginRight: 10,
     color: 'black',
   },
   addWrapper: {

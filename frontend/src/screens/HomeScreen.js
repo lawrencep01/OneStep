@@ -6,20 +6,16 @@ import CustomButton from '../components/CustomButton';
 const HomeScreen = ({ navigation }) => {
   const { height } = useWindowDimensions();
 
-  const onProfilePress = () => {
-    navigation.navigate('Profile');
-  };
-
-  const onSettingsPress = () => {
-    navigation.navigate('Settings');
-  };
-
   const onLogoutPress = () => {
     navigation.navigate('Login');
   };
 
   const onTaskListPress = () => {
     navigation.navigate('TaskList');
+  };
+
+  const onOneTaskPress = () => {
+    navigation.navigate('SingleTask');
   };
 
   return (
@@ -38,8 +34,7 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.LogoText}>Welcome to OneStep</Text>
 
         <View style={styles.buttonContainer}>
-          <CustomButton text={'Profile'} onPress={onProfilePress} />
-          <CustomButton text={'Settings'} onPress={onSettingsPress} />
+          <CustomButton text={'One Task'} onPress={onOneTaskPress} />
           <CustomButton text={'Task List'} onPress={onTaskListPress} />
           <CustomButton text={'Logout'} onPress={onLogoutPress} />
         </View>

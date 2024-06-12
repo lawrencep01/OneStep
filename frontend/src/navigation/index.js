@@ -4,6 +4,7 @@ import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import HomeScreen from '../screens/HomeScreen';
 import TaskScreen from '../screens/TaskScreen';
+import SingletaskScreen from '../screens/SingletaskScreen';
 
 const Stack = createStackNavigator();
 
@@ -33,7 +34,19 @@ const ScreenStack = () => {
             },
             headerTintColor: '#fff',
             headerTitle: '',
-            headerBackTitle: 'Back to Home',
+            headerBackTitle: ' ',
+          }}
+        />
+        <Stack.Screen
+          name="SingleTask"
+          component={SingletaskScreen}
+          options={{
+            headerStyle: {
+              backgroundColor: 'black',
+            },
+            headerTintColor: '#fff',
+            headerTitle: 'One Step',
+            headerBackTitle: ' ',
           }}
         />
       </Stack.Navigator>
