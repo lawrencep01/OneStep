@@ -45,7 +45,7 @@ const ScreenStack = () => {
               backgroundColor: 'black',
             },
             headerTintColor: '#fff',
-            headerTitle: 'One Task',
+            headerTitle: 'One Step',
             headerBackTitle: ' ',
           }}
         />
