@@ -22,6 +22,10 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate('TaskList');
   };
 
+  const onOneTaskPress = () => {
+    navigation.navigate('SingleTask');
+  };
+
   return (
     <View style={styles.root}>
       <Image
@@ -40,6 +44,7 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.buttonContainer}>
           <CustomButton text={'Profile'} onPress={onProfilePress} />
           <CustomButton text={'Settings'} onPress={onSettingsPress} />
+          <CustomButton text={'One Task'} onPress={onOneTaskPress} />
           <CustomButton text={'Task List'} onPress={onTaskListPress} />
           <CustomButton text={'Logout'} onPress={onLogoutPress} />
         </View>
