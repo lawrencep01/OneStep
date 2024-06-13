@@ -5,19 +5,23 @@ import LogoImg from '../assets/images/favicon.png';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import { auth } from '../../../firebase'; // Import auth from firebase configuration
-
+import { sendPasswordResetEmail } from 'firebase/auth';
 
 const ForgotPass = () => {
   const [email, setEmail] = useState('');
   const { height } = useWindowDimensions();
   const navigation = useNavigation();
 
-  const ResetEmail = async () => {
+  const handlePasswordReset = async () => {
     try {
-      await auth.sendPasswordResetEmail(email);
-      Alert.alert('Check your email for Reset. Remember to check your spam if not Found.');
+      await sendPasswordResetEmail(auth, email);
+      Alert.alert("Check your email, and once you have reset navigate back to login and try again");
+      
+      navigation.navigate('Login')
     } catch (error) {
-      Alert.alert('Error', error.message);
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      Alert.alert(`Error: ${errorMessage}`);
     }
   };
 
@@ -47,11 +51,11 @@ const ForgotPass = () => {
 
         <CustomInput placeholder={'email'} value={email} setValue={setEmail} />
 
-        <CustomButton text={'Reset Password'} onPress={ResetEmail} />
+        <CustomButton text={'Reset Password'} onPress={handlePasswordReset} />
 
         <CustomButton text={'Back to Log in'} onPress={BackToLog} type="TERTIARY" />
 
-        <CustomButton text={'No account? Sign Up'} onPress={NoAccountPress} type="SECONDARY" />
+        <CustomButton text={'No account? Sign Up'} onPress={NoAccountPress} type='TERTIARY'/>
       </View>
     </View>
   );
