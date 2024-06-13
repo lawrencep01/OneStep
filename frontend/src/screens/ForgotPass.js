@@ -5,34 +5,24 @@ import LogoImg from '../assets/images/favicon.png';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import { auth } from '../../../firebase'; // Import auth from firebase configuration
-import { signInWithEmailAndPassword } from 'firebase/auth'; // Import sign in function
+
 
 const ForgotPass = () => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const { height } = useWindowDimensions();
   const navigation = useNavigation();
 
-  const LoginPressed = () => {
-    if (!email || !password) {
-      Alert.alert('Error', 'All fields are required.');
-      return;
+  const ResetEmail = async () => {
+    try {
+      await auth.sendPasswordResetEmail(email);
+      Alert.alert('Check your email for Reset. Remember to check your spam if not Found.');
+    } catch (error) {
+      Alert.alert('Error', error.message);
     }
-
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        Alert.alert('Success', 'Login successful!');
-        setEmail('');
-        setPassword('');
-        navigation.navigate('Home');
-      })
-      .catch((error) => {
-        Alert.alert('Error', error.message);
-      });
   };
 
   const BackToLog = () => {
-    navigation.navigate('Login')
+    navigation.navigate('Login');
   };
 
   const NoAccountPress = () => {
@@ -56,9 +46,8 @@ const ForgotPass = () => {
         <Text style={styles.LogoText}> Reset Password </Text>
 
         <CustomInput placeholder={'email'} value={email} setValue={setEmail} />
-        
 
-        <CustomButton text={'Reset Password'} onPress={LoginPressed} />
+        <CustomButton text={'Reset Password'} onPress={ResetEmail} />
 
         <CustomButton text={'Back to Log in'} onPress={BackToLog} type="TERTIARY" />
 

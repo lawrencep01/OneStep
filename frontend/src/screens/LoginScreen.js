@@ -7,6 +7,7 @@ import CustomButton from '../components/CustomButton';
 import { auth } from '../../../firebase'; // Import auth from firebase configuration
 import { signInWithEmailAndPassword } from 'firebase/auth'; // Import sign in function
 
+
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
