@@ -1,7 +1,17 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
 
 const TaskItem = (props) => {
+  let [fontsLoaded] = useFonts({
+    Roboto_400Regular,
+    Roboto_700Bold,
+  });
+
+  if (!fontsLoaded) {
+    return null; // Render nothing while waiting for fonts to load
+  }
+
   const formatDateTime = (dateTime) => {
     const date = new Date(dateTime);
     const timeOptions = { hour: '2-digit', minute: '2-digit' };
@@ -63,16 +73,19 @@ const styles = StyleSheet.create({
   itemText: {
     maxWidth: '100%',
     flexWrap: 'wrap',
+    fontFamily: 'Roboto_400Regular', // Apply Roboto regular font
   },
   itemTextCompleted: {
     maxWidth: '100%',
     textDecorationLine: 'line-through',
     color: 'grey',
     flexWrap: 'wrap',
+    fontFamily: 'Roboto_400Regular', // Apply Roboto regular font
   },
   dateText: {
     fontSize: 12,
     color: 'grey',
+    fontFamily: 'Roboto_400Regular', // Apply Roboto regular font
   },
   circular: {
     width: 12,

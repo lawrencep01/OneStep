@@ -2,13 +2,18 @@ import { View, Text, Image, StyleSheet, useWindowDimensions } from 'react-native
 import React from 'react';
 import LogoImg from '../assets/images/favicon.png';
 import CustomButton from '../components/CustomButton';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-
+import { useFonts, Roboto_700Bold } from '@expo-google-fonts/roboto';
 
 const HomeScreen = ({ navigation }) => {
   const { height } = useWindowDimensions();
+
+  const [fontsLoaded] = useFonts({
+    Roboto_700Bold,
+  });
+
+  if (!fontsLoaded) {
+    return null; // Render nothing while waiting for fonts to load
+  }
 
   const onLogoutPress = () => {
     navigation.navigate('Login');
@@ -38,16 +43,16 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.LogoText}>Welcome to OneStep</Text>
 
         <View style={styles.buttonContainer}>
-          <CustomButton text={'One Task'} onPress={onOneTaskPress} />
-          <CustomButton text={'Task List'} onPress={onTaskListPress} />
-          <CustomButton text={'Logout'} onPress={onLogoutPress} />
+          <CustomButton text={'One Task'} onPress={onOneTaskPress} type="HOME" />
+          <CustomButton text={'Task List'} onPress={onTaskListPress} type="HOME" />
+          <View style={{ width: '100%', marginVertical: 30, borderRadius: 5 }}>
+            <CustomButton text={'Logout'} onPress={onLogoutPress} type="PRIMARY" />
+          </View>
         </View>
       </View>
     </View>
   );
 };
-
-
 
 const styles = StyleSheet.create({
   root: {
@@ -71,8 +76,9 @@ const styles = StyleSheet.create({
   },
   LogoText: {
     color: 'white',
-    fontSize: 30,
+    fontSize: 32,
     marginBottom: 40,
+    fontFamily: 'Roboto_700Bold', // Apply Roboto bold font
   },
   buttonContainer: {
     width: '100%',
@@ -80,6 +86,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
 
 export default HomeScreen;

@@ -3,12 +3,18 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { ref, onValue, set } from 'firebase/database';
 import { auth, database } from '../../../firebase';
 import { useNavigation } from '@react-navigation/native';
+import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
 
 const SingleTaskScreen = () => {
   const [task, setTask] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [user, setUser] = useState(null);
   const navigation = useNavigation();
+
+  let [fontsLoaded] = useFonts({
+    Roboto_400Regular,
+    Roboto_700Bold,
+  });
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -36,10 +42,14 @@ const SingleTaskScreen = () => {
     return () => unsubscribe();
   }, []);
 
+  if (!fontsLoaded) {
+    return null; // Render nothing while waiting for fonts to load
+  }
+
   const completeTask = (taskId) => {
     const taskRef = ref(database, `tasks/${user.uid}/${taskId}`);
     set(taskRef, { ...task, completed: true });
-    const remainingTasks = tasks.filter(t => t.id !== taskId);
+    const remainingTasks = tasks.filter((t) => t.id !== taskId);
     setTasks(remainingTasks);
     setTask(remainingTasks[0] || null);
   };
@@ -62,13 +72,17 @@ const SingleTaskScreen = () => {
       ) : (
         <View style={styles.noTaskContainer}>
           <Text style={styles.noTaskText}>No current tasks</Text>
-          <TouchableOpacity style={styles.addTaskButton} onPress={() => navigation.navigate('TaskList')}>
+          <TouchableOpacity
+            style={styles.addTaskButton}
+            onPress={() => navigation.navigate('TaskList')}>
             <Text style={styles.addTaskButtonText}>Add Task</Text>
           </TouchableOpacity>
         </View>
       )}
       {task && (
-        <TouchableOpacity style={styles.taskListButton} onPress={() => navigation.navigate('TaskList')}>
+        <TouchableOpacity
+          style={styles.taskListButton}
+          onPress={() => navigation.navigate('TaskList')}>
           <Text style={styles.taskListButtonText}>Go to Task List</Text>
         </TouchableOpacity>
       )}
@@ -93,10 +107,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: 'black',
+    fontFamily: 'Roboto_700Bold', // Apply Roboto bold font
   },
   taskTime: {
     fontSize: 16,
     color: 'grey',
+    fontFamily: 'Roboto_400Regular', // Apply Roboto regular font
   },
   noTaskContainer: {
     justifyContent: 'center',
@@ -106,6 +122,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     marginBottom: 20,
+    fontFamily: 'Roboto_700Bold', // Apply Roboto bold font
   },
   addTaskButton: {
     padding: 10,
@@ -115,6 +132,7 @@ const styles = StyleSheet.create({
   addTaskButtonText: {
     color: 'white',
     fontSize: 18,
+    fontFamily: 'Roboto_700Bold', // Apply Roboto bold font
   },
   taskListButton: {
     padding: 10,
@@ -126,6 +144,7 @@ const styles = StyleSheet.create({
   taskListButtonText: {
     color: 'white',
     fontSize: 18,
+    fontFamily: 'Roboto_700Bold', // Apply Roboto bold font
   },
 });
 

@@ -4,7 +4,9 @@ import { useNavigation } from '@react-navigation/native';
 import LogoImg from '../assets/images/favicon.png';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
-import { auth } from '../../../firebase'; // Import auth from firebase configuration
+import TextButton from '../components/TextButton';
+import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
+import { auth } from '../../../firebase';
 import { sendPasswordResetEmail } from 'firebase/auth';
 
 const ForgotPass = () => {
@@ -15,9 +17,9 @@ const ForgotPass = () => {
   const handlePasswordReset = async () => {
     try {
       await sendPasswordResetEmail(auth, email);
-      Alert.alert("Check your email, and once you have reset navigate back to login and try again");
-      
-      navigation.navigate('Login')
+      Alert.alert('Check your email, and once you have reset navigate back to login and try again');
+
+      navigation.navigate('Login');
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -47,15 +49,15 @@ const ForgotPass = () => {
           resizeMode="contain"
         />
 
-        <Text style={styles.LogoText}> Reset Password </Text>
+        <Text style={styles.LogoText}> OneStep </Text>
 
-        <CustomInput placeholder={'email'} value={email} setValue={setEmail} />
+        <CustomInput placeholder={'Email'} value={email} setValue={setEmail} />
 
         <CustomButton text={'Reset Password'} onPress={handlePasswordReset} />
-
-        <CustomButton text={'Back to Log in'} onPress={BackToLog} type="TERTIARY" />
-
-        <CustomButton text={'No account? Sign Up'} onPress={NoAccountPress} type='TERTIARY'/>
+        <View style={styles.textButtonContainer}>
+          <TextButton text={'Back to Log In'} onPress={BackToLog} />
+          <TextButton text={'No Account? Sign Up'} onPress={NoAccountPress} />
+        </View>
       </View>
     </View>
   );
@@ -85,6 +87,11 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     color: 'white',
     fontSize: 35,
+    fontFamily: 'Roboto_700Bold',
+  },
+  textButtonContainer: {
+    alignItems: 'center',
+    marginTop: 15,
   },
 });
 

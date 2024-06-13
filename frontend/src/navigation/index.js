@@ -5,7 +5,7 @@ import SignupScreen from '../screens/SignupScreen';
 import HomeScreen from '../screens/HomeScreen';
 import TaskScreen from '../screens/TaskScreen';
 import SingletaskScreen from '../screens/SingletaskScreen';
-import ForgotPass from '../screens/ForgotPass'
+import ForgotPass from '../screens/ForgotPass';
 
 const Stack = createStackNavigator();
 
@@ -21,16 +21,10 @@ const ScreenStack = () => {
             headerStyle: {
               backgroundColor: 'black',
             },
-            headerShown: false
-
+            headerShown: false,
           }}
         />
-        <Stack.Screen name="Home" 
-        component={HomeScreen} 
-        options={{ headerShown: false
-         }} 
-         
-        />
+        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
 
         <Stack.Screen
           name="TaskList"
@@ -52,7 +46,7 @@ const ScreenStack = () => {
               backgroundColor: 'black',
             },
             headerTintColor: '#fff',
-            headerShown: false
+            headerShown: false,
           }}
         />
         <Stack.Screen

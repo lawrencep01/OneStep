@@ -12,6 +12,8 @@ import React, { useState } from 'react';
 import LogoImg from '../assets/images/favicon.png';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
+import TextButton from '../components/TextButton';
+import { useFonts, Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
 import { auth } from '../../../firebase'; // Import auth from firebase configuration
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'; // Import required functions
 import { useNavigation } from '@react-navigation/native';
@@ -23,6 +25,15 @@ const SignupScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigation = useNavigation();
   const { height } = useWindowDimensions();
+
+  let [fontsLoaded] = useFonts({
+    Roboto_400Regular,
+    Roboto_700Bold,
+  });
+
+  if (!fontsLoaded) {
+    return null; // Render nothing while waiting for fonts to load
+  }
 
   const SigninPressed = () => {
     if (!username || !email || !password || !confirmPassword) {
@@ -48,7 +59,7 @@ const SignupScreen = () => {
             setEmail('');
             setPassword('');
             setConfirmPassword('');
-            navigation.navigate('Home')
+            navigation.navigate('Home');
           })
           .catch((error) => {
             Alert.alert('Error', error.message);
@@ -61,9 +72,7 @@ const SignupScreen = () => {
 
   const BackToLog = () => {
     navigation.navigate('Login');
-
-  }
-
+  };
 
   return (
     <KeyboardAvoidingView style={styles.root} behavior="padding">
@@ -80,7 +89,7 @@ const SignupScreen = () => {
             resizeMode="contain"
           />
 
-          <Text style={styles.LogoText}> OneStep</Text>
+          <Text style={styles.LogoText}>OneStep</Text>
 
           <CustomInput placeholder={'Username'} value={username} setValue={setUsername} />
           <CustomInput placeholder={'Email'} value={email} setValue={setEmail} />
@@ -97,7 +106,10 @@ const SignupScreen = () => {
             secureTextEntry={true}
           />
           <CustomButton text={'Register'} onPress={SigninPressed} />
-          <CustomButton text={'Already Have an Account? Back to Log In'} onPress={BackToLog} type="TERTIARY"/>
+
+          <View style={styles.textButtonContainer}>
+            <TextButton text={'Have an Account? Log In'} onPress={BackToLog} />
+          </View>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -129,13 +141,12 @@ const styles = StyleSheet.create({
   LogoText: {
     paddingBottom: 30,
     color: 'white',
-    fontSize: 35,
+    fontSize: 36,
+    fontFamily: 'Roboto_700Bold', // Apply Roboto bold font
   },
-  divider: {
-    width: '100%',
-    height: 1,
-    backgroundColor: 'gray',
-    marginBottom: 20, // adjust as needed
+  textButtonContainer: {
+    alignItems: 'center',
+    marginTop: 10,
   },
 });
 
