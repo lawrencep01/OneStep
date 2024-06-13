@@ -2,6 +2,13 @@ import { View, Text, Image, StyleSheet, useWindowDimensions } from 'react-native
 import React from 'react';
 import LogoImg from '../assets/images/favicon.png';
 import CustomButton from '../components/CustomButton';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+const HomeScreen = ({ navigation }) => {
+
+  
+
 
 const HomeScreen = ({ navigation }) => {
   const { height } = useWindowDimensions();
@@ -23,7 +30,7 @@ const HomeScreen = ({ navigation }) => {
       <Image
         source={require('../assets/images/Background.jpeg')}
         style={styles.backgroundImage}
-        blurRadius={2}
+        blurRadius={20}
       />
       <View style={styles.overlay}>
         <Image
@@ -42,6 +49,8 @@ const HomeScreen = ({ navigation }) => {
     </View>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   root: {
@@ -74,5 +83,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+}
 
 export default HomeScreen;
