@@ -97,7 +97,7 @@ const SignupScreen = () => {
             secureTextEntry={true}
           />
           <CustomButton text={'Register'} onPress={SigninPressed} />
-          <CustomButton text={'Already Have an Account? Back to Log In'} onPress={BackToLog}/>
+          <CustomButton text={'Already Have an Account? Back to Log In'} onPress={BackToLog} type="TERTIARY"/>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
