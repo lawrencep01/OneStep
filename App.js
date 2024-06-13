@@ -1,16 +1,17 @@
 import React from 'react';
+import { StatusBar, SafeAreaView, StyleSheet } from 'react-native';
 import ScreenStack from './frontend/src/navigation';
 import 'react-native-gesture-handler';
-import { SafeAreaView, StyleSheet } from 'react-native';
 import './firebase';
-import HomeScreen from './frontend/src/screens/HomeScreen';
-
 
 const App = () => {
   return (
-    <SafeAreaView style={styles.root}>
-      <ScreenStack/>
-    </SafeAreaView>
+    <>
+      <StatusBar barStyle="light-content" backgroundColor="black" />
+      <SafeAreaView style={styles.root}>
+        <ScreenStack />
+      </SafeAreaView>
+    </>
   );
 };
 

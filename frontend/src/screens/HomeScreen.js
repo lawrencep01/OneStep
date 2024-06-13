@@ -7,38 +7,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const HomeScreen = ({ navigation }) => {
 
-  const Tab = createBottomTabNavigator();
-
-  const screenOptions = {
-    tabBarShowLabel: false,
-    headerShown: false,
-    tabBarStyle:{
-      position: "absolute",
-      bottom:0,
-      right:0,
-      left:0,
-      elevation:0,
-      height:60,
-      background: 'white'
-    }
-  }
+  
 
 
-  const { height } = useWindowDimensions();
-  return(
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name = "TaskList" component={navigation}/>
-        <Tab.Screen name = "TaskList" component={navigation}/>
-        <Tab.Screen name = "TaskList" component={navigation}/>
-        <Tab.Screen name = "TaskList" component={navigation}/>
-      </Tab.Navigator>
-    </NavigationContainer>
-  )
-}
-
-
-/*
 const HomeScreen = ({ navigation }) => {
   const { height } = useWindowDimensions();
 
@@ -85,7 +56,7 @@ const HomeScreen = ({ navigation }) => {
     </View>
   );
 };
-*/
+
 
 
 const styles = StyleSheet.create({
@@ -119,5 +90,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+}
 
 export default HomeScreen;
