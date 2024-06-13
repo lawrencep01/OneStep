@@ -5,9 +5,6 @@ import CustomButton from '../components/CustomButton';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const HomeScreen = ({ navigation }) => {
-
-  
 
 
 const HomeScreen = ({ navigation }) => {
@@ -83,6 +80,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-}
+
 
 export default HomeScreen;
