@@ -49,6 +49,7 @@ const SignupScreen = () => {
             setEmail('');
             setPassword('');
             setConfirmPassword('');
+            navigation.navigate('Home')
           })
           .catch((error) => {
             Alert.alert('Error', error.message);
@@ -57,6 +58,7 @@ const SignupScreen = () => {
       .catch((error) => {
         Alert.alert('Error', error.message);
       });
+
   };
  const BackToLog = () => {
       navigation.navigate('Login');
